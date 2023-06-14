@@ -8,7 +8,9 @@ const DepartamentoModel = sequelize.define('departamento', {
     primaryKey: true,
     allowNull: false
   },
-  nome: { type: DataTypes.STRING },
+  nome: {
+    type: DataTypes.STRING
+  },
 }, {
   timestamps: false // Desabilita os campos de timestamps
 });
@@ -24,6 +26,7 @@ module.exports = {
     const departamentos = await DepartamentoModel.findAll();
     return departamentos;
   },
+  
   //INSERT de dados na tabela
   save: async function(sigla, nome) {
     try {
@@ -34,6 +37,27 @@ module.exports = {
       return departamentoins;
     } catch (error) {
       console.error("Erro ao salvar departamento:", error);
+      throw error;
+    }
+  },
+
+  // Método para exclusão de dados
+  delete: async function(nome) {
+    try {
+      // Encontra o departamento pela sigla
+      const departamento = await DepartamentoModel.findOne({ where: { nome: nome } });
+
+      if (!departamento) {
+        throw new Error('Departamento não encontrado');
+      }
+
+      // Exclui o departamento
+      await departamento.destroy();
+
+      // Retorna true para indicar que a exclusão foi bem-sucedida
+      return true;
+    } catch (error) {
+      console.error("Erro ao excluir departamento:", error);
       throw error;
     }
   },

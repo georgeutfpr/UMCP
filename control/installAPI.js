@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
     let curso01 = await CursoModel.save('Computacao', departamento01.nome);
     let curso02 = await CursoModel.save('Software', departamento02.nome);
-    let curso03 = await CursoModel.save('ADS', departamento03.nome);
+    let curso03 = await CursoModel.save('ADS', departamento01.nome);
     let curso04 = await CursoModel.save('Matematica', departamento04.nome);
     let curso05 = await CursoModel.save('Biologia', departamento05.nome);
 
@@ -30,11 +30,11 @@ router.get('/', async (req, res) => {
     let aluno05 = await AlunoModel.save(2004, "Neide", curso04.nome, 3, "Manha");
     let aluno06 = await AlunoModel.save(2005, "Pedro", curso02.nome, 3, "Noite");
 
-    let materia01 = await MateriaModel.save("AS63A", "Programacao Web BackEnd");
-    let materia02 = await MateriaModel.save("EC35B", "Banco de Dados 2");
-    let materia03 = await MateriaModel.save("MT22A", "Calculo Aplicado");
-    let materia04 = await MateriaModel.save("EC35A", "Teoria da Computacao");
-    let materia05 = await MateriaModel.save("AS63C", "Desenvolvimento Agil");
+    let materia01 = await MateriaModel.save("AS63A", "Programacao Web BackEnd", "Prof. Roberto");
+    let materia02 = await MateriaModel.save("EC35B", "Banco de Dados 2", "Prof. Anderson");
+    let materia03 = await MateriaModel.save("MT22A", "Calculo Aplicado", "Prof. Carla");
+    let materia04 = await MateriaModel.save("EC35A", "Teoria da Computacao", "Prof. Ana");
+    let materia05 = await MateriaModel.save("AS63C", "Desenvolvimento Agil", "Prof. Erica");
 
     let turma01_1 = await TurmaModel.save("C51", "Turma A", aluno01.ra, materia03.codigo);
     let turma01_2 = await TurmaModel.save("C51", "Turma A", aluno02.ra, materia03.codigo);

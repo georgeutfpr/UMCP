@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Deletar Aluno</title>
+  <script>
+    function confirmDelete() {
+      var confirmed = window.confirm("Tem certeza que deseja deletar este aluno?");
+      return confirmed;
+    }
+  </script>
 </head>
 <body>
   <h1>Deletar Aluno</h1>
-  <form method="POST" action="/alunos/delete">
+  <form method="POST" action="/api/alunos/delete" onsubmit="return confirmDelete()">
     <label for="ra">Selecione o aluno a ser deletado:</label>
     <select name="ra" id="ra">
       {{#alunos}}

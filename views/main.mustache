@@ -2,26 +2,31 @@
 <html>
 <head>
   <title>Formulário de Aluno</title>
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>-->
 </head>
   <body>
     <h1>Seja bem-vindo(a) ao Sistema UMCP</h1>
     <ul>
-      <h2>Inserir:</h2>
-      <li><a href="/alunos/form">Inserir Aluno</a></li>
-      <li><a href="/turmas/form">Inserir Turma</a></li>
-      <li><a href="/materias/form">Inserir Matéria</a></li>
-      <li><a href="/cursos/form">Inserir Curso</a></li>
-      <li><a href="/departamentos/form">Inserir Departamento</a></li>
-      <h2>Visualizar:</h2>
-      <li><a href="/alunos">Visualizar Alunos</a></li>
-      <li><a href="/turmas">Visualizar Turmas</a></li>
-      <li><a href="/materias">Visualizar Matérias</a></li>
-      <li><a href="/cursos">Visualizar Cursos</a></li>
-      <li><a href="/departamentos">Visualizar Departamentos</a></li>
-      <br>
-      <h2>Deletar:</h2>
-      <li><a href="/alunos/delete">Deletar Aluno</a></li>
+      <h2>Alunos:</h2>
+      <li><a href="/api/alunos/form">Inserir</a></li>
+      <li><a href="/api/alunos">Visualizar</a></li>
+      <li><a href="/api/alunos/update">Atualizar</a></li>
+      <li><a href="/api/alunos/delete">Deletar</a></li>
+      <h2>Cursos:</h2>
+      <li><a href="/api/cursos/form">Inserir</a></li>
+      <li><a href="/api/cursos">Visualizar</a></li>
+      <li><a href="/api/cursos/delete">Deletar</a></li>
+      <h2>Departamento:</h2>
+      <li><a href="/api/departamentos/form">Inserir</a></li>
+      <li><a href="/api/departamentos">Visualizar</a></li>
+      <li><a href="/api/departamentos/delete">Deletar</a></li>
+      <h2>Matérias:</h2>
+      <li><a href="/api/materias/form">Inserir</a></li>
+      <li><a href="/api/materias">Visualizar</a></li>
+      <li><a href="/api/materias/delete">Deletar</a></li>
+      <h2>Turmas:</h2>
+      <li><a href="/api/turmas/form">Inserir</a></li>
+      <li><a href="/api/turmas">Visualizar</a></li>
+      <li><a href="/api/turmas/delete">Deletar</a></li>
     </ul>
   </body>
 </html>

@@ -32,12 +32,14 @@ Curso.Model.hasMany(AlunoModel, {
 
 //Exporta as funções do Modelo
 module.exports = {
-  //SELECT dos dados da tabela
+
+  // SELECT dos dados da tabela
   list: async function() {
     const alunos = await AlunoModel.findAll();
     return alunos;
   },
-  //INSERT de dados na tabela
+
+  // INSERT de dados na tabela
   save: async function(ra, nome, curso, periodo, turno) {
     try {
       const aluno = await AlunoModel.create({
@@ -54,7 +56,7 @@ module.exports = {
     }
   },
 
-  // Método para exclusão de dados
+  // DELETE de dados na tabela
   delete: async function(ra) {
     try {
       // Encontra o aluno pelo RA
@@ -67,10 +69,36 @@ module.exports = {
       // Exclui o aluno
       await aluno.destroy();
 
-      // Retorna true para indicar que a exclusão foi bem-sucedida
+      // Retorna true para indicar que a exclusão foi bem sucedida
       return true;
     } catch (error) {
       console.error("Erro ao excluir aluno:", error);
+      throw error;
+    }
+  },
+
+  //UPDATE de dados na tabela
+  update: async function(ra, nome, curso, periodo, turno) {
+    try {
+      // Encontra o aluno pelo RA
+      const aluno = await AlunoModel.findOne({ where: { ra: ra } });
+
+      if (!aluno) {
+        throw new Error('Aluno não encontrado');
+      }
+
+      // Atualiza os dados do aluno
+      aluno.nome = nome;
+      aluno.curso = curso;
+      aluno.periodo = periodo;
+      aluno.turno = turno;
+      // Como são mais de um campo para atualização, se usa o método 'save'
+      await aluno.save();
+
+      // Retorna o aluno atualizado
+      return aluno;
+    } catch (error) {
+      console.error("Erro ao atualizar aluno:", error);
       throw error;
     }
   },

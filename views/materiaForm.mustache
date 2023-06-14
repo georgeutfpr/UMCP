@@ -6,11 +6,13 @@
 </head>
 <body>
   <h1>Formulário de Cadastro de Matéria</h1>
-  <form action="/materias" method="POST">
+  <form action="/api/materias" method="POST">
     <label for="codigo">Código:</label>
     <input type="text" id="codigo" name="codigo" required><br><br>
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" required><br><br>
+    <label for="professor">Professor:</label>
+    <input type="text" id="professor" name="professor" required><br><br>
     <input type="submit" value="Cadastrar Matéria">
   </form>
   <br><a href="/">Página Inicial</a>

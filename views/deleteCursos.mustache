@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Deletar Curso</title>
+  <script>
+    function confirmDelete() {
+      var confirmed = window.confirm("Tem certeza que deseja deletar este curso?\nOs alunos também serão excluídos!");
+      return confirmed;
+    }
+  </script>
+</head>
+<body>
+  <h1>Deletar Curso</h1>
+  <form method="POST" action="/api/cursos/delete" onsubmit="return confirmDelete()">
+    <label for="nome">Selecione o curso a ser deletado:</label>
+    <select name="nome" id="nome">
+      {{#cursos}}
+      <option value="{{nome}}">{{nome}}</option>
+      {{/cursos}}
+    </select>
+    <br>
+    <button type="submit">Deletar</button>
+  </form>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>

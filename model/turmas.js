@@ -29,19 +29,8 @@ Aluno.Model.hasMany(TurmaModel, {
 });
 
 // Sincroniza com o BD
-(async () => {
-  try {
-    // Sincroniza os modelos Materia e Aluno primeiro
-    await Materia.Model.sync();
-    await Aluno.Model.sync();
-
-    // Sincroniza a tabela Turma
-    await TurmaModel.sync({ force: true });
-    console.log("A tabela turmas foi atualizada!");
-  } catch (error) {
-    console.error("Erro ao sincronizar a tabela turmas:", error);
-  }
-})();
+TurmaModel.sync({ alter: true }); // Atualiza o BD
+console.log("A tabela turmas foi atualizada!");
 
 // Exporta as funções do Modelo
 module.exports = {
@@ -79,6 +68,28 @@ module.exports = {
       throw error;
     }
   },
+
+  // Método para exclusão de dados
+  delete: async function(codigo) {
+    try {
+      // Encontra o departamento pela sigla
+      const turma = await TurmaModel.findOne({ where: { codigo: codigo } });
+
+      if (!codigo) {
+        throw new Error('Codigo não encontrado');
+      }
+
+      // Exclui o departamento
+      await turma.destroy();
+
+      // Retorna true para indicar que a exclusão foi bem-sucedida
+      return true;
+    } catch (error) {
+      console.error("Erro ao excluir turma:", error);
+      throw error;
+    }
+  },
+
   // Exporta o Model
   Model: TurmaModel
 };

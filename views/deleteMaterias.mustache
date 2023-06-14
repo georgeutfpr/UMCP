@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Deletar Materia</title>
+  <script>
+    function confirmDelete() {
+      var confirmed = window.confirm("Tem certeza que deseja deletar esta matéria?\n Suas turmas também serão excluídas!");
+      return confirmed;
+    }
+  </script>
+</head>
+<body>
+  <h1>Deletar Materia</h1>
+  <form method="POST" action="/api/materias/delete" onsubmit="return confirmDelete()">
+    <label for="nome">Selecione o materia a ser deletada:</label>
+    <select name="nome" id="nome">
+      {{#materias}}
+      <option value="{{nome}}">{{nome}} ({{codigo}})</option>
+      {{/materias}}
+    </select>
+    <br>
+    <button type="submit">Deletar</button>
+  </form>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>

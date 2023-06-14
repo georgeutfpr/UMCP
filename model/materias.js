@@ -10,6 +10,9 @@ const MateriaModel = sequelize.define('materia', {
   },
   nome: {
     type: DataTypes.STRING
+  },
+  professor: {
+    type: DataTypes.STRING
   }
 }, {
   timestamps: false // Desabilita os campos de timestamps
@@ -26,15 +29,39 @@ module.exports = {
     const mat = await MateriaModel.findAll();
     return mat;
   },
+
   // INSERT de dados na tabela
-  save: async function(codigo, nome) {
+  save: async function(codigo, nome, professor) {
     console.log("Dados recebidos:", codigo, nome);
     const matins = await MateriaModel.create({
       codigo: codigo,
-      nome: nome
+      nome: nome,
+      professor: professor
     });
     return matins;
   },
+
+  // Método para exclusão de dados
+  delete: async function(nome) {
+    try {
+      // Encontra o departamento pela sigla
+      const materia = await MateriaModel.findOne({ where: { nome: nome } });
+
+      if (!materia) {
+        throw new Error('Materia não encontrado');
+      }
+
+      // Exclui o departamento
+      await materia.destroy();
+
+      // Retorna true para indicar que a exclusão foi bem-sucedida
+      return true;
+    } catch (error) {
+      console.error("Erro ao excluir materia:", error);
+      throw error;
+    }
+  },
+
   // Exporta o Model
   Model: MateriaModel
 };

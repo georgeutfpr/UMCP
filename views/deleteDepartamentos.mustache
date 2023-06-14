@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Deletar Departamento</title>
+  <script>
+    function confirmDelete() {
+      var confirmed = window.confirm("Tem certeza que deseja deletar este departamento?\nAlunos e cursos também serão excluídos!");
+      return confirmed;
+    }
+  </script>
+</head>
+<body>
+  <h1>Deletar Departamento</h1>
+  <form method="POST" action="/api/departamentos/delete" onsubmit="return confirmDelete()">
+    <label for="nome">Selecione o departamento a ser deletado:</label>
+    <select name="nome" id="nome">
+      {{#departamentos}}
+      <option value="{{nome}}">{{sigla}} - {{nome}}</option>
+      {{/departamentos}}
+    </select>
+    <br>
+    <button type="submit">Deletar</button>
+  </form>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>
