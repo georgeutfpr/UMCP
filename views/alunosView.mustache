@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Alunos</title>
+</head>
+<body>
+  <h1>Alunos Cadastrados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>RA</th>
+        <th>Nome</th>
+        <th>Curso</th>
+        <th>Período</th>
+        <th>Turno</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#alunos}}
+      <tr>
+        <td>{{ra}}</td>
+        <td>{{nome}}</td>
+        <td>{{curso}}</td>
+        <td>{{periodo}}</td>
+        <td>{{turno}}</td>
+      </tr>
+      {{/alunos}}
+    </tbody>
+  </table>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Inserir Turma</title>
+</head>
+<body>
+  <h1>Inserir Turma</h1>
+  <h2>Turmas Cadastradas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>RA dos Alunos</th>
+        <th>Código da Materia</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#turmas}}
+      <tr>
+        <td>{{codigo}}</td>
+        <td>{{alunos_RA}}</td>
+        <td>{{materia_codigo}}</td>
+      </tr>
+      {{/turmas}}
+    </tbody>
+  </table>
+  <br>
+  <form action="/turmas" method="post">
+    <div>
+      <label for="codigo">Código da Turma:</label>
+      <input type="text" id="codigo" name="codigo" required>
+    </div>
+    <div>
+      <label for="alunos_RA">Aluno (RA):</label>
+      <select id="alunos_RA" name="alunos_RA">
+        {{#alunos}}
+        <option value="{{ra}}">{{ra}}</option>
+        {{/alunos}}
+      </select>
+    </div>
+    <div>
+      <label for="materia_codigo">Matéria:</label>
+      <select id="materia_codigo" name="materia_codigo" required>
+        {{#materias}}
+        <option value="{{codigo}}">{{nome}}</option>
+        {{/materias}}
+      </select>
+    </div>
+    <div>
+      <button type="submit">Salvar</button>
+    </div>
+  </form>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>

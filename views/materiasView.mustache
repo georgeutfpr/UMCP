@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Matérias</title>
+</head>
+<body>
+  <h1>Matérias Cadastradas</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#materias}}
+      <tr>
+        <td>{{codigo}}</td>
+        <td>{{nome}}</td>
+      </tr>
+      {{/materias}}
+    </tbody>
+  </table>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Turmas</title>
+</head>
+<body>
+  <h1>Turmas Cadastradas</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>RA dos Alunos</th>
+        <th>Código da Materia</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#turmas}}
+      <tr>
+        <td>{{codigo}}</td>
+        <td>{{alunos_RA}}</td>
+        <td>{{materia_codigo}}</td>
+      </tr>
+      {{/turmas}}
+    </tbody>
+  </table>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>
