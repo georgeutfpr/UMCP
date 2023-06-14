@@ -39,6 +39,16 @@ module.exports = {
     return alunos;
   },
 
+  page: async function(page) {
+    const pageSize = 5; // Número de registros por página
+    const offset = (page - 1) * pageSize; // Cálculo do deslocamento (offset) com base no número da página
+    const alunosPage = await AlunoModel.findAll({
+      limit: pageSize,
+      offset: offset
+    });
+    return alunosPage;
+  },
+
   // INSERT de dados na tabela
   save: async function(ra, nome, curso, periodo, turno) {
     try {
@@ -52,27 +62,6 @@ module.exports = {
       return aluno;
     } catch (error) {
       console.error("Erro ao salvar aluno:", error);
-      throw error;
-    }
-  },
-
-  // DELETE de dados na tabela
-  delete: async function(ra) {
-    try {
-      // Encontra o aluno pelo RA
-      const aluno = await AlunoModel.findOne({ where: { ra: ra } });
-
-      if (!aluno) {
-        throw new Error('Aluno não encontrado');
-      }
-
-      // Exclui o aluno
-      await aluno.destroy();
-
-      // Retorna true para indicar que a exclusão foi bem sucedida
-      return true;
-    } catch (error) {
-      console.error("Erro ao excluir aluno:", error);
       throw error;
     }
   },
@@ -99,6 +88,27 @@ module.exports = {
       return aluno;
     } catch (error) {
       console.error("Erro ao atualizar aluno:", error);
+      throw error;
+    }
+  },
+
+  // DELETE de dados na tabela
+  delete: async function(ra) {
+    try {
+      // Encontra o aluno pelo RA
+      const aluno = await AlunoModel.findOne({ where: { ra: ra } });
+
+      if (!aluno) {
+        throw new Error('Aluno não encontrado');
+      }
+
+      // Exclui o aluno
+      await aluno.destroy();
+
+      // Retorna true para indicar que a exclusão foi bem sucedida
+      return true;
+    } catch (error) {
+      console.error("Erro ao excluir aluno:", error);
       throw error;
     }
   },

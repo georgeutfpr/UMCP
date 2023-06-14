@@ -3,12 +3,6 @@ const router = express.Router();
 const Aluno = require('../model/alunos');
 const Curso = require('../model/cursos');
 
-// Rota para visualizar todos os alunos
-router.get('/alunos', async (req, res) => {
-  const alunos = await Aluno.list();
-  res.render('alunosView', { alunos });
-});
-
 // Rota para exibir o formulário de inserir aluno
 router.get('/alunos/form', async (req, res) => {
   try {
@@ -29,7 +23,7 @@ router.post('/alunos', async (req, res) => {
 
   try {
     const aluno = await Aluno.save(ra, nome, curso, periodo, turno);
-    res.redirect('/api/alunos'); // Redireciona para a página de visualização de alunos
+    res.redirect('/api/alunos/1'); // Redireciona para a página de visualização de alunos
   } catch (error) {
     console.error("Erro ao cadastrar aluno:", error);
     res.status(500).json({ error: 'Erro ao cadastrar aluno' });
@@ -39,13 +33,13 @@ router.post('/alunos', async (req, res) => {
 // Rota para exibir o formulário de atualização de aluno
 router.get('/alunos/update', async (req, res) => {
   try {
-    const alunos = await Aluno.list(); // Obtenha a lista de alunos
-    const cursos = await Curso.list();
+    const alunos = await Aluno.list(); // Obtém a lista de alunos
+    const cursos = await Curso.list(); // Obtém a lista de cursos
 
-    res.render('alunoUpdate', { alunos, cursos }); // Renderize o formulário de atualização de aluno com a lista de alunos
+    res.render('alunoUpdate', { alunos, cursos }); // Renderize o formulário de atualização de aluno com a lista de alunos e de cursos
   } catch (error) {
-    console.error('Erro ao carregar alunos:', error);
-    res.status(500).send('Erro ao carregar alunos');
+    console.error('Erro ao carregar alunos ou cursos:', error);
+    res.status(500).send('Erro ao carregar alunos ou cursos');
   }
 });
 
@@ -56,9 +50,9 @@ router.post('/alunos/update', async (req, res) => {
   try {
     const alunoAtualizado = await Aluno.update(ra, nome, curso, periodo, turno); // Chame a função de atualização de aluno com os novos dados
 
-    res.redirect('/api/alunos');
+    res.redirect('/api/alunos/1');
   } catch (error) {
-    res.render('erro', { mensagem: 'Erro ao atualizar aluno: ' + error.message });
+    console.error('Erro ao atualizar aluno:', error);
   }
 });
 
@@ -83,7 +77,7 @@ router.post('/alunos/delete', async (req, res) => {
 
     // Verifica se a exclusão foi bem-sucedida
     if (resultadoAlu) {
-      res.redirect('/api/alunos'); // Redireciona para a página de visualização de alunos após a exclusão
+      res.redirect('/api/alunos/1'); // Redireciona para a página de visualização de alunos após a exclusão
     } else {
       res.status(404).send('Aluno não encontrado'); // Retorna erro se o aluno não for encontrado
     }
@@ -91,6 +85,13 @@ router.post('/alunos/delete', async (req, res) => {
     console.error('Erro ao excluir aluno:', error);
     res.status(500).send('Erro ao excluir aluno');
   }
+});
+
+// Rota para visualizar todos os alunos
+router.get('/alunos/:page', async (req, res) => {
+  const page = parseInt(req.params.page) || 1;
+  const alunos = await Aluno.page(page);
+  res.render('alunosView', { alunos, currentPage: page });
 });
 
 module.exports = router;

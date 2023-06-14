@@ -26,6 +26,31 @@ router.post('/departamentos', async (req, res) => {
   }
 });
 
+// Rota para exibir o formulário de atualização de departamento
+router.get('/departamentos/update', async (req, res) => {
+  try {
+    const departamentos = await Departamento.list(); // Obtém a lista de departamentos
+
+    res.render('departamentoUpdate', { departamentos }); // Renderize o formulário de atualização de aluno com a lista de departamentos
+  } catch (error) {
+    console.error('Erro ao carregar departamentos:', error);
+    res.status(500).send('Erro ao carregar departamentos');
+  }
+});
+
+// Rota para processar o formulário de atualização de departamento
+router.post('/departamentos/update', async (req, res) => {
+  const { sigla, nome } = req.body;
+
+  try {
+    const departamentoAtualizado = await Departamento.update(sigla, nome); // Chame a função de atualização de departamento com os novos dados
+
+    res.redirect('/api/departamentos');
+  } catch (error) {
+    console.error('Erro ao atualizar departamento:', error);
+  }
+});
+
 // Rota para exibir o formulário de deletar departamentos
 router.get('/departamentos/delete', async (req, res) => {
   try {

@@ -29,8 +29,23 @@ Aluno.Model.hasMany(TurmaModel, {
 });
 
 // Sincroniza com o BD
-TurmaModel.sync({ alter: true }); // Atualiza o BD
-console.log("A tabela turmas foi atualizada!");
+(async () => {
+  try {
+    // Sincroniza os modelos Materia e Aluno primeiro
+    await Materia.Model.sync();
+    await Aluno.Model.sync();
+
+    // Sincroniza a tabela Turma
+    await TurmaModel.sync({ force: true });
+    console.log("A tabela turmas foi atualizada!");
+  } catch (error) {
+    console.error("Erro ao sincronizar a tabela turmas:", error);
+  }
+})();
+
+// Sincroniza com o BD
+//  TurmaModel.sync({ alter: true }); // Atualiza o BD
+//  console.log("A tabela turmas foi atualizada!");
 
 // Exporta as funções do Modelo
 module.exports = {
@@ -45,8 +60,8 @@ module.exports = {
     }
   },
   // INSERT de dados na tabela
-  save: async function (codigo, nome, alunos_RA, materia_codigo) {
-    console.log("Dados recebidos:", codigo, nome, alunos_RA, materia_codigo);
+  save: async function (codigo, alunos_RA, materia_codigo) {
+    console.log("Dados recebidos:", codigo, alunos_RA, materia_codigo);
     try {
       if (typeof alunos_RA === 'string' && typeof materia_codigo === 'string') {
         const obj = await Aluno.Model.findOne({ where: { ra: alunos_RA } });
@@ -69,7 +84,33 @@ module.exports = {
     }
   },
 
-  // Método para exclusão de dados
+  //UPDATE de dados na tabela
+  update: async function (codigo, novoCodigo, novoRA, novoMateriaCodigo) {
+    try {
+      // Encontra a turma pelo código
+      const turma = await TurmaModel.findOne({ where: { codigo: codigo } });
+
+      if (!turma) {
+        throw new Error('Turma não encontrada');
+      }
+
+      // Atualiza os dados da turma
+      turma.codigo = novoCodigo;
+      turma.alunos_RA = novoRA;
+      turma.materia_codigo = novoMateriaCodigo;
+
+      // Salva as alterações
+      await turma.save();
+
+      // Retorna a turma atualizada
+      return turma;
+    } catch (error) {
+      console.error("Erro ao atualizar turma:", error);
+      throw error;
+    }
+  },
+
+  // DELETE de dados na tabela
   delete: async function(codigo) {
     try {
       // Encontra o departamento pela sigla

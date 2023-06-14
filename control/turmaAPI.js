@@ -25,14 +25,42 @@ router.get('/turmas/form', async (req, res) => {
 
 // Rota para processar o formulário de inserir turma
 router.post('/turmas', async (req, res) => {
-  const { codigo, nome, alunos_RA, materia_codigo } = req.body;
+  const { codigo, alunos_RA, materia_codigo } = req.body;
 
   try {
-    const turma = await Turma.save(codigo, nome, alunos_RA, materia_codigo);
+    const turma = await Turma.save(codigo, alunos_RA, materia_codigo);
     res.redirect('/api/turmas'); // Redireciona para a página de visualização de turmas
   } catch (error) {
     console.error("Erro ao cadastrar turma:", error);
     res.status(500).json({ error: 'Erro ao cadastrar turma' });
+  }
+});
+
+// Rota para exibir o formulário de atualização de turma
+router.get('/turmas/update', async (req, res) => {
+  try {
+    const turmas = await Turma.list(); // Obtenha a lista de turmas
+    const alunos = await Aluno.list(); // Obtenha a lista de alunos
+    const materias = await Materia.list(); // Obtenha a lista de matérias
+
+    res.render('turmaUpdate', { turmas, alunos, materias }); // Renderize o formulário de atualização de turma com a lista de turmas, alunos e matérias
+  } catch (error) {
+    console.error('Erro ao carregar turmas, alunos ou matérias:', error);
+    res.status(500).send('Erro ao carregar turmas, alunos ou matérias');
+  }
+});
+
+// Rota para processar o formulário de atualização de turma
+router.post('/turmas/update', async (req, res) => {
+  const { codigo, nome, alunos_RA, materia_codigo } = req.body;
+
+  try {
+    const turmaAtualizada = await Turma.update(codigo, nome, alunos_RA, materia_codigo); // Chame a função de atualização de turma com os novos dados
+
+    res.redirect('/api/turmas');
+  } catch (error) {
+    console.error('Erro ao atualizar turma:', error);
+    res.status(500).send('Erro ao atualizar turma');
   }
 });
 

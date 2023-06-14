@@ -19,8 +19,8 @@ const MateriaModel = sequelize.define('materia', {
 });
 
 // Sincroniza com o BD
-MateriaModel.sync({ alter: true }); // Atualiza o BD
-console.log("A tabela materias foi atualizada!");
+  MateriaModel.sync({ alter: true }); // Atualiza o BD
+  console.log("A tabela materias foi atualizada!");
 
 // Exporta as funções do Modelo
 module.exports = {
@@ -41,7 +41,32 @@ module.exports = {
     return matins;
   },
 
-  // Método para exclusão de dados
+  //UPDATE de dados na tabela
+  update: async function(codigo, nome, professor) {
+    try {
+      // Encontra a materia pelo codigo
+      const materia = await MateriaModel.findOne({ where: { codigo: codigo } });
+
+      if (!materia) {
+        throw new Error('Matéria não encontrada');
+      }
+
+      // Atualiza os dados da materia
+      materia.codigo = codigo;
+      materia.nome = nome;
+      materia.professor = professor;
+      // Como são mais de um campo para atualização, se usa o método 'save'
+      await materia.save();
+
+      // Retorna a materia atualizada
+      return materia;
+    } catch (error) {
+      console.error("Erro ao atualizar materia:", error);
+      throw error;
+    }
+  },
+
+  // DELETE de dados da tabela
   delete: async function(nome) {
     try {
       // Encontra o departamento pela sigla

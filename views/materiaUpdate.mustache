@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Atualizar Matéria</title>
+  </head>
+  <body>
+    <h1>Atualizar Matéria</h1>
+
+    <!-- Select para selecionar o materia a ser atualizado -->
+    <label for="materia-select">Selecione o materia:</label>
+    <select id="materia-select">
+      <option value="">Selecione um materia</option>
+      {{#materias}}
+        <option value="{{codigo}}" data-codigo="{{codigo}}" data-nome="{{nome}}" data-professor="{{professor}}">{{codigo}}</option>
+      {{/materias}}
+    </select>
+
+    <!-- Formulário para edição dos dados do materia -->
+    <form id="materia-form" action="/api/materias/update" method="POST">
+      <label for="codigo">Código:</label>
+      <input type="text" name="codigo" id="codigo" readonly>
+      <br>
+      <label for="nome">Nome:</label>
+      <input type="text" name="nome" id="nome">
+      <br>
+      <label for="professor">Professor:</label>
+      <input type="text" name="professor" id="professor">
+      <br>
+      <input type="submit" value="Atualizar">
+    </form>
+
+    <br><a href="/">Página Inicial</a>
+
+    <script>
+      // Função para atualizar os campos de entrada (inputs) com os dados do materia selecionado
+      function atualizarDadosMateria() {
+        const select = document.getElementById("materia-select");
+        const materiaSelecionado = select.options[select.selectedIndex];
+
+        document.getElementById("codigo").value = materiaSelecionado.value;
+        document.getElementById("nome").value = materiaSelecionado.dataset.nome;
+        document.getElementById("professor").value = materiaSelecionado.dataset.professor;
+      }
+
+      // Event listener para acionar a função de atualização dos campos quando o materia selecionado mudar
+      const select = document.getElementById("materia-select");
+      select.addEventListener("change", atualizarDadosMateria);
+    </script>
+
+  </body>
+</html>

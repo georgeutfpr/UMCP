@@ -28,6 +28,23 @@
       {{/alunos}}
     </tbody>
   </table>
+
+  <!-- Exibir os botões de navegação -->
+    <br><a id="previous-link" href="/api/alunos/{{currentPage - 1}}">Anterior</a>
+    <br><a id="next-link" href="/api/alunos/{{currentPage + 1}}">Próxima</a>
+
+    <script>
+      const nextLink = document.getElementById('next-link'); // Obter o link da próxima página
+      const previousLink = document.getElementById('previous-link'); // Obter o link da página anterior
+      const currentPage = {{currentPage}}; // Obter o valor da página atual
+      const nextPage = currentPage + 1; // Atualizar o link da próxima página adicionando +1 ao valor atual
+      const previousPage = currentPage - 1; // Atualizar o link da página anterior adicionando -1 ao valor atual
+      nextLink.href = `/api/alunos/${nextPage}`;
+      previousLink.href = `/api/alunos/${previousPage}`;
+    </script>
+
+    <p>Página: {{currentPage}}</p>
+
   <br><a href="/">Página Inicial</a>
 </body>
 </html>

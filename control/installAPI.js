@@ -36,13 +36,13 @@ router.get('/', async (req, res) => {
     let materia04 = await MateriaModel.save("EC35A", "Teoria da Computacao", "Prof. Ana");
     let materia05 = await MateriaModel.save("AS63C", "Desenvolvimento Agil", "Prof. Erica");
 
-    let turma01_1 = await TurmaModel.save("C51", "Turma A", aluno01.ra, materia03.codigo);
-    let turma01_2 = await TurmaModel.save("C51", "Turma A", aluno02.ra, materia03.codigo);
-    let turma02_1 = await TurmaModel.save("D51", "Turma F", aluno03.ra, materia05.codigo);
-    let turma03_1 = await TurmaModel.save("M12", "Turma C", aluno04.ra, materia02.codigo);
-    let turma03_2 = await TurmaModel.save("M12", "Turma C", aluno05.ra, materia02.codigo);
-    let turma04_1 = await TurmaModel.save("S50", "Turma B", aluno01.ra, materia01.codigo);
-    let turma05_1 = await TurmaModel.save("C51", "Turma B", aluno03.ra, materia04.codigo);
+    let turma01_1 = await TurmaModel.save("C51", aluno01.ra, materia03.codigo);
+    let turma01_2 = await TurmaModel.save("C51", aluno02.ra, materia03.codigo);
+    let turma02_1 = await TurmaModel.save("D51", aluno03.ra, materia05.codigo);
+    let turma03_1 = await TurmaModel.save("M12", aluno04.ra, materia02.codigo);
+    let turma03_2 = await TurmaModel.save("M12", aluno05.ra, materia02.codigo);
+    let turma04_1 = await TurmaModel.save("S50", aluno01.ra, materia01.codigo);
+    let turma05_1 = await TurmaModel.save("C51", aluno03.ra, materia04.codigo);
 
     let alunos = [aluno01, aluno02, aluno03, aluno04, aluno05];
     let materias = [materia01, materia02, materia03, materia04, materia05];

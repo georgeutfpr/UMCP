@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Atualizar Departamento</title>
+  </head>
+  <body>
+    <h1>Atualizar Departamento</h1>
+
+    <!-- Select para selecionar o departamento a ser atualizado -->
+    <label for="departamento-select">Selecione o departamento:</label>
+    <select id="departamento-select">
+      <option value="">Selecione um departamento</option>
+      {{#departamentos}}
+        <option value="{{sigla}}" data-sigla="{{sigla}}" data-nome="{{nome}}">{{sigla}}</option>
+      {{/departamentos}}
+    </select>
+
+    <!-- Formulário para edição dos dados do departamento -->
+    <form id="departamento-form" action="/api/departamentos/update" method="POST">
+      <label for="sigla">Sigla:</label>
+      <input type="text" name="sigla" id="sigla" readonly>
+      <br>
+      <label for="nome">Nome:</label>
+      <input type="text" name="nome" id="nome">
+      <br>
+      <input type="submit" value="Atualizar">
+    </form>
+
+    <br><a href="/">Página Inicial</a>
+
+    <script>
+      // Função para atualizar os campos de entrada (inputs) com os dados do departamento selecionado
+      function atualizarDadosDepartamento() {
+        const select = document.getElementById("departamento-select");
+        const departamentoSelecionado = select.options[select.selectedIndex];
+
+        document.getElementById("sigla").value = departamentoSelecionado.value;
+        document.getElementById("nome").value = departamentoSelecionado.dataset.nome;
+      }
+
+      // Event listener para acionar a função de atualização dos campos quando o departamento selecionado mudar
+      const select = document.getElementById("departamento-select");
+      select.addEventListener("change", atualizarDadosDepartamento);
+    </script>
+
+  </body>
+</html>

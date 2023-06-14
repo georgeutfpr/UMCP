@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>View</title>
+</head>
+<body>
+  <h1>Alunos e Departamentos</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>RA</th>
+        <th>Departamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#dadosView}}
+      <tr>
+        <td>{{ra}}</td>
+        <td>{{departamento}}</td>
+      </tr>
+      {{/dadosView}}
+    </tbody>
+  </table>
+  <br><a href="/login">Página Inicial</a>
+</body>
+</html>

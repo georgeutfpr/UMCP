@@ -24,8 +24,8 @@ const CursoModel = sequelize.define('curso', {
   });
 
 // Sincroniza com o BD
-CursoModel.sync({ alter: true }); // Atualiza o BD
-console.log("A tabela cursos foi atualizada!");
+  CursoModel.sync({ alter: true }); // Atualiza o BD
+  console.log("A tabela cursos foi atualizada!");
 
 // Exporta as funções do Modelo
 module.exports = {
@@ -59,6 +59,30 @@ module.exports = {
   } catch (error) {
     console.error("Erro ao cadastrar curso:", error);
     throw error;
+    }
+  },
+
+  //UPDATE de dados na tabela
+  update: async function(nome, departamento) {
+    try {
+      // Encontra o curso pelo nome
+      const curso = await CursoModel.findOne({ where: { nome: nome } });
+
+      if (!curso) {
+        throw new Error('Curso não encontrado');
+      }
+
+      // Atualiza os dados do curso
+      curso.nome = nome;
+      curso.departamento = departamento;
+      // Como são mais de um campo para atualização, se usa o método 'save'
+      await curso.save();
+
+      // Retorna o aluno atualizado
+      return curso;
+    } catch (error) {
+      console.error("Erro ao atualizar curso:", error);
+      throw error;
     }
   },
 

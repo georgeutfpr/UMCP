@@ -26,7 +26,7 @@ module.exports = {
     const departamentos = await DepartamentoModel.findAll();
     return departamentos;
   },
-  
+
   //INSERT de dados na tabela
   save: async function(sigla, nome) {
     try {
@@ -41,7 +41,31 @@ module.exports = {
     }
   },
 
-  // Método para exclusão de dados
+  //UPDATE de dados na tabela
+  update: async function(sigla, nome) {
+    try {
+      // Encontra o departamento pela sigla
+      const departamento = await DepartamentoModel.findOne({ where: { sigla: sigla } });
+
+      if (!departamento) {
+        throw new Error('Departamento não encontrado');
+      }
+
+      // Atualiza os dados do departamento
+      departamento.sigla = sigla;
+      departamento.nome = nome;
+      // Como são mais de um campo para atualização, se usa o método 'save'
+      await departamento.save();
+
+      // Retorna o departamento atualizado
+      return departamento;
+    } catch (error) {
+      console.error("Erro ao atualizar departamento:", error);
+      throw error;
+    }
+  },
+
+  // DELETE de dados na tabela
   delete: async function(nome) {
     try {
       // Encontra o departamento pela sigla

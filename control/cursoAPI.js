@@ -15,7 +15,7 @@ router.get('/cursos/form', async (req, res) => {
     // Obtenha todos os departamentos cadastrados
     const departamentos = await Departamento.list();
 
-    // Renderize o template com os cursos
+    // Renderize o template com os departamentos
     res.render('cursoForm', { departamentos });
   } catch (error) {
     console.error("Erro ao carregar departamentos:", error);
@@ -33,6 +33,32 @@ router.post('/cursos', async (req, res) => {
   } catch (error) {
     console.error("Erro ao cadastrar curso:", error);
     res.status(500).json({ error: 'Erro ao cadastrar curso' });
+  }
+});
+
+// Rota para exibir o formulário de atualização de curso
+router.get('/cursos/update', async (req, res) => {
+  try {
+    const cursos = await Curso.list(); // Obtenha a lista de alunos
+    const departamentos = await Departamento.list(); // Obtenha a lista de departamentos
+
+    res.render('cursoUpdate', { cursos, departamentos }); // Renderize o formulário de atualização de curso com a lista de cursos e departamentos
+  } catch (error) {
+    console.error('Erro ao carregar cursos ou departamentos:', error);
+    res.status(500).send('Erro ao carregar cursos ou departamentos');
+  }
+});
+
+// Rota para processar o formulário de atualização de curso
+router.post('/cursos/update', async (req, res) => {
+  const { nome, departamento } = req.body;
+
+  try {
+    const cursoAtualizado = await Curso.update(nome, departamento); // Chame a função de atualização de curso com os novos dados
+
+    res.redirect('/api/cursos');
+  } catch (error) {
+    console.error('Erro ao atualizar curso:', error);
   }
 });
 

@@ -26,6 +26,31 @@ router.post('/materias', async (req, res) => {
   }
 });
 
+// Rota para exibir o formulário de atualização de materia
+router.get('/materias/update', async (req, res) => {
+  try {
+    const materias = await Materia.list(); // Obtém a lista de materias
+
+    res.render('materiaUpdate', { materias }); // Renderize o formulário de atualização de aluno com a lista de materias
+  } catch (error) {
+    console.error('Erro ao carregar materias:', error);
+    res.status(500).send('Erro ao carregar materias');
+  }
+});
+
+// Rota para processar o formulário de atualização de materia
+router.post('/materias/update', async (req, res) => {
+  const { sigla, nome } = req.body;
+
+  try {
+    const materiaAtualizado = await Materia.update(sigla, nome); // Chame a função de atualização de materia com os novos dados
+
+    res.redirect('/api/materias');
+  } catch (error) {
+    console.error('Erro ao atualizar materia:', error);
+  }
+});
+
 // Rota para exibir o formulário de deletar matéria
 router.get('/materias/delete', async (req, res) => {
   try {
