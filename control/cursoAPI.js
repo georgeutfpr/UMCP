@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const CursoModel = require('../model/cursos');
 
-// Rota para listar todos os alunos
+// Rota para listar todos os cursos
 router.get('/cursos', async (req, res) => {
   try {
     const cursos = await CursoModel.list();
@@ -12,12 +12,12 @@ router.get('/cursos', async (req, res) => {
   }
 });
 
-// Rota para cadastrar um novo aluno
+// Rota para cadastrar um novo curso
 router.post('/cursos', async (req, res) => {
-  const { nome } = req.body;
+  const { nome, departamento } = req.body;
 
   try {
-    const curso = await CursoModel.save(nome);
+    const curso = await CursoModel.save(nome, departamento);
     res.json(curso);
   } catch (error) {
     console.log("Erro ao cadastrar curso:", error);

@@ -9,6 +9,14 @@
   <form action="/cursos" method="POST">
     <label for="nome">Nome:</label>
     <input type="text" id="nome" name="nome" required><br><br>
+    <div>
+      <label for="departamento">Departamento:</label>
+      <select id="departamento" name="departamento">
+        {{#departamentos}}
+        <option value="{{nome}}">{{nome}}</option>
+        {{/departamentos}}
+      </select>
+    </div><br>
     <input type="submit" value="Cadastrar Curso">
   </form>
   <br><a href="/">Página Inicial</a>

@@ -2,24 +2,24 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Visualizar Cursos</title>
+  <title>Visualizar Departamentos</title>
 </head>
 <body>
-  <h1>Cursos Cadastrados</h1>
+  <h1>Departamentos Cadastrados</h1>
   <table>
     <thead>
       <tr>
+        <th>Sigla</th>
         <th>Nome</th>
-        <th>Departamento</th>
       </tr>
     </thead>
     <tbody>
-      {{#cursos}}
+      {{#departamentos}}
       <tr>
+        <td>{{sigla}}</td>
         <td>{{nome}}</td>
-        <td>{{departamento}}</td>
       </tr>
-      {{/cursos}}
+      {{/departamentos}}
     </tbody>
   </table>
   <br><a href="/">Página Inicial</a>

@@ -20,7 +20,7 @@ router.post('/turmas', async (req, res) => {
   try {
     const turma = await TurmaModel.save(codigo, nome, alunos_RA, materia_codigo);
     if (!turma) {
-      res.status(400).json({ error: 'Aluno não encontrado' });
+      res.status(400).json({ error: 'Turma não encontrado' });
     }
     res.json(turma);
   } catch (error) {

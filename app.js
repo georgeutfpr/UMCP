@@ -6,6 +6,7 @@ const Aluno = require('./model/alunos');
 const Materia = require('./model/materias');
 const Turma = require('./model/turmas');
 const Curso = require('./model/cursos');
+const Departamento = require('./model/departamentos')
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api", require("./control/alunoAPI"));
 app.use("/api", require("./control/materiaAPI"));
 app.use("/api", require("./control/turmaAPI"));
 app.use("/api", require("./control/cursoAPI"));
+app.use("/api", require("./control/departamentoAPI"));
 
 app.use("/install", require('./control/installAPI'))
 
@@ -51,7 +53,13 @@ app.get('/turmas', async (req, res) => {
 // Rota para visualizar todos os cursos
 app.get('/cursos', async (req, res) => {
   const cursos = await Curso.list();
-  res.render('cursosView', { cursos });
+  res.render('cursosView', { cursos: cursos });
+});
+
+// Rota para visualizar todos os departamentos
+app.get('/departamentos', async (req, res) => {
+  const departamentos = await Departamento.list();
+  res.render('departamentosView', { departamentos });
 });
 
 // Rota para exibir o formulário de inserir aluno
@@ -74,8 +82,17 @@ app.get('/materias/form', (req, res) => {
 });
 
 // Rota para exibir o formulário de inserir curso
-app.get('/cursos/form', (req, res) => {
-  res.render('cursoForm');
+app.get('/cursos/form', async (req, res) => {
+  try {
+    // Obtenha todos os departamentos cadastrados
+    const departamentos = await Departamento.list();
+
+    // Renderize o template com os cursos
+    res.render('cursoForm', { departamentos });
+  } catch (error) {
+    console.error("Erro ao carregar departamentos:", error);
+    res.status(500).send("Erro ao carregar departamentos");
+  }
 });
 
 // Rota para exibir o formulário de inserir turma
@@ -89,6 +106,11 @@ app.get('/turmas/form', async (req, res) => {
     console.error("Erro ao buscar turmas, alunos e matérias:", error);
     res.status(500).send("Erro ao buscar turmas, alunos e matérias");
   }
+});
+
+// Rota para exibir o formulário de inserir departamento
+app.get('/departamentos/form', (req, res) => {
+  res.render('departamentoForm');
 });
 
 // Rota para processar o formulário de inserir aluno
@@ -130,16 +152,29 @@ app.post('/turmas', async (req, res) => {
   }
 });
 
-// Rota para processar o formulário de inserir matéria
+// Rota para processar o formulário de inserir curso
 app.post('/cursos', async (req, res) => {
-  const { nome } = req.body;
+  const { nome, departamento } = req.body;
 
   try {
-    const curso = await Curso.save(nome);
+    const curso = await Curso.save(nome, departamento);
     res.redirect('/cursos'); // Redireciona para a página de visualização de matérias
   } catch (error) {
     console.error("Erro ao cadastrar curso:", error);
     res.status(500).json({ error: 'Erro ao cadastrar curso' });
+  }
+});
+
+// Rota para processar o formulário de inserir departamento
+app.post('/departamentos', async (req, res) => {
+  const { sigla, nome } = req.body;
+
+  try {
+    const departamento = await Departamento.save(sigla, nome);
+    res.redirect('/departamentos'); // Redireciona para a página de visualização de departamentos
+  } catch (error) {
+    console.error("Erro ao cadastrar departamento:", error);
+    res.status(500).json({ error: 'Erro ao cadastrar departamento' });
   }
 });
 
