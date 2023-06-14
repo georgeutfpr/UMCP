@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../helpers/postgres")
+const Curso = require('./cursos');
 
 //Cria a tabela 'Alunos' com o Model
 const AlunoModel = sequelize.define('aluno', {
@@ -9,11 +10,20 @@ const AlunoModel = sequelize.define('aluno', {
     allowNull: false
   },
   nome: { type: DataTypes.STRING },
-  curso: { type: DataTypes.STRING(45) },
   periodo: { type: DataTypes.INTEGER },
   turno: { type: DataTypes.STRING(10) },
 }, {
   timestamps: false // Desabilita os campos de timestamps
+});
+
+// Relação de chave estrangeira com a tabela cursos
+AlunoModel.belongsTo(Curso.Model, {
+  foreignKey: 'curso',
+  as: 'cursoAssociado' // Renomeie a associação para evitar colisão de nomes
+});
+Curso.Model.hasMany(AlunoModel, {
+  foreignKey: 'curso',
+  as: 'alunosAssociados' // Renomeie a associação para evitar colisão de nomes
 });
 
 //Sincroniza com o BD
@@ -43,6 +53,28 @@ module.exports = {
       throw error;
     }
   },
+
+  // Método para exclusão de dados
+  delete: async function(ra) {
+    try {
+      // Encontra o aluno pelo RA
+      const aluno = await AlunoModel.findOne({ where: { ra: ra } });
+
+      if (!aluno) {
+        throw new Error('Aluno não encontrado');
+      }
+
+      // Exclui o aluno
+      await aluno.destroy();
+
+      // Retorna true para indicar que a exclusão foi bem-sucedida
+      return true;
+    } catch (error) {
+      console.error("Erro ao excluir aluno:", error);
+      throw error;
+    }
+  },
+
   //Exporta o Model
   Model: AlunoModel
 }

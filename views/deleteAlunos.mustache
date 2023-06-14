@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Deletar Aluno</title>
+</head>
+<body>
+  <h1>Deletar Aluno</h1>
+  <form method="POST" action="/alunos/delete">
+    <label for="ra">Selecione o aluno a ser deletado:</label>
+    <select name="ra" id="ra">
+      {{#alunos}}
+      <option value="{{ra}}">{{ra}} - {{nome}}</option>
+      {{/alunos}}
+    </select>
+    <br>
+    <button type="submit">Deletar</button>
+  </form>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>

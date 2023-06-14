@@ -5,15 +5,21 @@ const sequelize = require("../helpers/postgres");
 const AlunoModel = require('../model/alunos');
 const MateriaModel = require('../model/materias');
 const TurmaModel = require('../model/turmas');
+const CursoModel = require('../model/cursos');
 
 router.get('/', async (req, res) => {
     await sequelize.sync({ force: true });
 
-    let aluno01 = await AlunoModel.save(2000, "George", "Computacao", 1, "Manha");
-    let aluno02 = await AlunoModel.save(2001, "Pedro", "Software", 3, "Noite");
-    let aluno03 = await AlunoModel.save(2002, "Maria", "ADS", 2, "Noite");
-    let aluno04 = await AlunoModel.save(2003, "Guilherme", "Computacao", 4, "Manha");
-    let aluno05 = await AlunoModel.save(2004, "Neide", "Matematica", 3, "Manha");
+    let curso01 = await CursoModel.save('Computacao');
+    let curso02 = await CursoModel.save('Software');
+    let curso03 = await CursoModel.save('ADS');
+    let curso04 = await CursoModel.save('Matematica');
+
+    let aluno01 = await AlunoModel.save(2000, "George", curso01.nome, 1, "Manha");
+    let aluno02 = await AlunoModel.save(2001, "Pedro", curso02.nome, 3, "Noite");
+    let aluno03 = await AlunoModel.save(2002, "Maria", curso03.nome, 2, "Noite");
+    let aluno04 = await AlunoModel.save(2003, "Guilherme", curso01.nome, 4, "Manha");
+    let aluno05 = await AlunoModel.save(2004, "Neide", curso04.nome, 3, "Manha");
 
     let materia01 = await MateriaModel.save("AS63A", "Programacao Web BackEnd");
     let materia02 = await MateriaModel.save("EC35B", "Banco de Dados 2");

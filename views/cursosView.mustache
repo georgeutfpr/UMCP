@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Cursos</title>
+</head>
+<body>
+  <h1>Cursos Cadastrados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#cursos}}
+      <tr>
+        <td>{{nome}}</td>
+      </tr>
+      {{/cursos}}
+    </tbody>
+  </table>
+  <br><a href="/">Página Inicial</a>
+</body>
+</html>
