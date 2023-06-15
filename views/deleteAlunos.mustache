@@ -3,6 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>Deletar Aluno</title>
+  <style>
+    body{
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: hsl(212, 25%, 89%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+    .main{
+        background-color: hsl(0, 0%, 100%);
+        display: flex;
+        width: 300px;
+        height: auto;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        color: hsl(218, 44%, 22%);
+      }
+
+    input{
+        width: 70%;
+    }
+
+    h1{
+        display: flex;
+        background: #120EAB;
+        height: auto;
+        width: 300px;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-top:-5px;
+    }
+
+    button{
+      height:20px;
+      margin-top:20px;
+    }
+
+    a{
+     color:black;
+    }
+
+   img {
+    width: 40%;
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  </style>
   <script>
     function confirmDelete() {
       var confirmed = window.confirm("Tem certeza que deseja deletar este aluno?");
@@ -11,6 +69,9 @@
   </script>
 </head>
 <body>
+
+<div class="main">
+ <img src="/images/logo.png" alt="Minha Imagem">
   <h1>Deletar Aluno</h1>
   <form method="POST" action="/api/alunos/delete" onsubmit="return confirmDelete()">
     <label for="ra">Selecione o aluno a ser deletado:</label>
@@ -23,5 +84,7 @@
     <button type="submit">Deletar</button>
   </form>
   <br><a href="/">Página Inicial</a>
+  </div>
+
 </body>
 </html>

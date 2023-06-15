@@ -3,8 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <title>Visualizar Alunos</title>
+  <style>
+    body{
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: hsl(212, 25%, 89%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Verdana, sans-serif;
+    }
+
+    .main{
+      background-color: hsl(0, 0%, 100%);
+      display: flex;
+      width: auto;
+      height: auto;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      color: hsl(218, 44%, 22%);
+    }
+
+    input{
+      width: 70%;
+    }
+
+    #periodo{
+      width: 15%;
+    }
+
+    h1{
+      display: flex;
+      background: #120EAB;
+      height: auto;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid hsl(218, 44%, 22%);
+}
+
+thead {
+  background-color: #120EAB;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.botoes {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin: 5px;
+}
+
+#previous-link,
+#next-link {
+  padding: 5px 10px;
+  background-color: #120EAB;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+#previous-link:hover,
+#next-link:hover {
+  background-color: #0C0A8C;
+}
+
+p {
+  margin-top: 10px;
+}
+
+img {
+ width: 40%;
+ margin-top: -50px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+</style>
 </head>
 <body>
+  <div class="main">
+  <img src="/images/logo.png" alt="Minha Imagem"><br>
   <h1>Alunos Cadastrados</h1>
   <table>
     <thead>
@@ -30,8 +130,10 @@
   </table>
 
   <!-- Exibir os botões de navegação -->
-    <br><a id="previous-link" href="/api/alunos/{{currentPage - 1}}">Anterior</a>
-    <br><a id="next-link" href="/api/alunos/{{currentPage + 1}}">Próxima</a>
+    <div class="botoes">
+      <br><a id="previous-link" href="/api/alunos/{{currentPage - 1}}">Anterior</a>
+      <br><a id="next-link" href="/api/alunos/{{currentPage + 1}}">Próxima</a>
+    </div>
 
     <script>
       const nextLink = document.getElementById('next-link'); // Obter o link da próxima página
@@ -42,9 +144,8 @@
       nextLink.href = `/api/alunos/${nextPage}`;
       previousLink.href = `/api/alunos/${previousPage}`;
     </script>
-
     <p>Página: {{currentPage}}</p>
-
-  <br><a href="/">Página Inicial</a>
+  <br><a href="/" class="inicio">Página Inicial</a>
+  </div>
 </body>
 </html>

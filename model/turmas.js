@@ -29,6 +29,7 @@ Aluno.Model.hasMany(TurmaModel, {
 });
 
 // Sincroniza com o BD
+/*
 (async () => {
   try {
     // Sincroniza os modelos Materia e Aluno primeiro
@@ -42,10 +43,11 @@ Aluno.Model.hasMany(TurmaModel, {
     console.error("Erro ao sincronizar a tabela turmas:", error);
   }
 })();
+*/
 
 // Sincroniza com o BD
-//  TurmaModel.sync({ alter: true }); // Atualiza o BD
-//  console.log("A tabela turmas foi atualizada!");
+  TurmaModel.sync({ alter: true }); // Atualiza o BD
+  console.log("A tabela turmas foi atualizada!");
 
 // Exporta as funções do Modelo
 module.exports = {

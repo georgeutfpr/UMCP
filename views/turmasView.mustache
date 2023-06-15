@@ -3,8 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>Visualizar Turmas</title>
+  <style>
+    body{
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: hsl(212, 25%, 89%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Verdana, sans-serif;
+    }
+
+    .main{
+      background-color: hsl(0, 0%, 100%);
+      display: flex;
+      width: auto;
+      height: auto;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      color: hsl(218, 44%, 22%);
+    }
+
+    input{
+      width: 70%;
+    }
+
+    #periodo{
+      width: 15%;
+    }
+
+    h1{
+      display: flex;
+      background: #120EAB;
+      height: auto;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+th, td {
+  padding: 10px;
+  border: 1px solid hsl(218, 44%, 22%);
+}
+
+thead {
+  background-color: #120EAB;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+img {
+    width: 40%;
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
 </head>
 <body>
+  <div class="main">
+  <img src="/images/logo.png" alt="Minha Imagem"><br>
   <h1>Turmas Cadastradas</h1>
   <table>
     <thead>
@@ -25,5 +98,6 @@
     </tbody>
   </table>
   <br><a href="/">Página Inicial</a>
+</div>
 </body>
 </html>

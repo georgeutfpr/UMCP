@@ -15,16 +15,3 @@ sequelize
   .catch(error => console.log(error));
 
 module.exports = sequelize;
-
-// Conecta com o BD
-//const professor = new Sequelize(process.env.DB_NAME, process.env.DB_USER_2, process.env.DB_PASSWORD_2, {
-//  host: process.env.DB_HOST,
-//  dialect: process.env.DB_DIALECT
-//});
-
-//professor
-//  .authenticate()
-//  .then(() => console.log("Conectado ao PostgreSQL como professor!"))
-//  .catch(error => console.log(error));
-
-//module.exports = professor;

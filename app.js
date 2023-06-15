@@ -11,10 +11,13 @@ app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
 
 // Configuração módulo dotenv
-require("dotenv").config()
+require("dotenv").config();
 
 // Configuração do Body Parser para lidar com dados do formulário
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Configurar o diretório de arquivos estáticos
+app.use(express.static('public'));
 
 // Rota principal
 app.get('/', (req, res) => {
