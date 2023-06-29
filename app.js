@@ -1,46 +1,40 @@
-const express = require('express');
-const mustacheExpress = require('mustache-express');
-const bodyParser = require('body-parser');
-const path = require('path');
-
-const app = express();
-
-// Configuração do Mustache como mecanismo de visualização
-app.engine('mustache', mustacheExpress());
-app.set('view engine', 'mustache');
-app.set('views', path.join(__dirname, 'views'));
-
-// Configuração módulo dotenv
+//Config
+//Gerais
+const path = require("path");
 require("dotenv").config();
-
-// Configuração do Body Parser para lidar com dados do formulário
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Configurar o diretório de arquivos estáticos
-app.use(express.static('public'));
-
-// Rota principal
-app.get('/', (req, res) => {
-  res.render('main');
+//Express
+const express = require("express");
+const app = express()
+app.use(express.json())
+app.use(express.static(path.join(__dirname, "public")));
+//Session
+const session = require("express-session");
+app.use(
+  session({
+    secret: process.env.SESSION,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+//Passport
+const passport = require("passport");
+const configPassport = require("./helpers/auth");
+configPassport(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
 });
+//Sequelize
+const sequelize = require("./helpers/postgres");
+//API
+app.use("/api/alunos", require("./control/alunosAPI"))
+app.use("/api/departamentos", require("./control/departamentosAPI"))
+app.use("/api/cursos", require("./control/cursosAPI"))
+app.use("/api/users", require("./control/usersAPI"));
+app.use("/install", require("./control/installAPI"))
 
-// Rota login
-app.get('/login', (req, res) => {
-  res.render('login');
-});
-
-// Roteador de Alunos
-app.use("/api", require("./control/alunoAPI"));
-app.use("/api", require("./control/materiaAPI"));
-app.use("/api", require("./control/turmaAPI"));
-app.use("/api", require("./control/cursoAPI"));
-app.use("/api", require("./control/dadosAlunosAPI"));
-app.use("/api", require("./control/departamentoAPI"));
-
-// Rota para popular tabela
-app.use("/install", require('./control/installAPI'))
-
-// Configuração da porta do servidor
 app.listen(3000, () => {
-  console.log("...");
-});
+  console.log("Listenning...")
+})

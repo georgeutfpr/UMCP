@@ -3,5 +3,5 @@ DB_HOST = localhost
 DB_NAME = UMCP
 DB_USER_1 =     postgres
 DB_PASSWORD_1 = senha123
-DB_USER_2 =     professor
-DB_PASSWORD_2 = professor
+SESSION = chave_secreta
+SECRET = secret
